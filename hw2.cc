@@ -1,4 +1,5 @@
 #include <iostream>
+#include <assert.h>
 /**
     CSCI 394
     hw2.cc
@@ -14,6 +15,8 @@
     element after the last
 */
 const int* highest(int val, const int* start, const int* finish) {
+    assert(start != nullptr);
+    assert(finish != nullptr);
     // needs to be start + 1 so that it terminates when start and finish 
     // are adjacent
     while (start + 1 < finish){
@@ -79,6 +82,73 @@ int main()
             std::cout << "not found!" << std::endl;
         } else {
             std::cout << (where-data_tc3) << std::endl;
+        }
+
+    }
+
+    // nonint search values?
+    for (int i = 0; i < 5; ++i) {
+        const int* where;
+        switch(i){
+            case 0:
+                where = highest(1.1, data, data + DATA_LEN);
+                std::cout << "Index of elem: " << 1.1 << " is: ";
+                break;
+            case 1:
+                where = highest(1.1f, data, data + DATA_LEN);
+                std::cout << "Index of elem: " << 1.1f << " is: ";
+                break;
+            case 2:
+                where = highest('c', data, data + DATA_LEN);
+                std::cout << "Index of elem: " << 'c' << " is: ";
+                break;
+            case 3:
+                where = highest(1.8, data, data + DATA_LEN);
+                std::cout << "Index of elem: " << 1.8 << " is: ";
+                break;
+            case 4:
+                where = highest(2.1, data, data + DATA_LEN);
+                std::cout << "Index of elem: " << 2.1 << " is: ";
+                break;
+            default:
+                where = highest(1, data, data + DATA_LEN);
+                std::cout << "Index of elem: " << 1 << " is: ";
+        }
+        if (where == nullptr) {
+            std::cout << "not found!" << std::endl;
+        } else {
+            std::cout << (where-data) << std::endl;
+        }
+
+    }
+
+    // bad pointers?
+    for (int i = 0; i < 4; ++i) {
+        const int* where;
+        switch(i){
+            case 0:
+                // For this case, valgrind complains that data + DATA_LEN is uninitialized,
+                // because I derefernce start on line 34, but I cannot figure out how to
+                // check if memory at a location is initialized within highest.
+                where = highest(1, data + DATA_LEN, data);
+                std::cout << "Index of 1 between data + DATA_LEN and data: ";
+                break;
+            case 1:
+                where = highest(1, data, data + DATA_LEN + 1);
+                std::cout << "Index of 1 between data and data + DATA_LEN + 1: ";
+                break;
+            case 2:
+                where = highest(1, data, data_tc3);
+                std::cout << "Index of 1 between data and data_tc3: ";
+                break;
+            default:
+                where = highest(1, data, data + DATA_LEN);
+                std::cout << "Index of 1 between data and data + DATA_LEN: ";
+        }
+        if (where == nullptr) {
+            std::cout << "not found!" << std::endl;
+        } else {
+            std::cout << (where-data) << std::endl;
         }
 
     }
