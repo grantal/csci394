@@ -42,7 +42,7 @@ VecTree::VecTree(value_t root, const VecTree& left, const VecTree& right)
     for (unsigned copied = 0; copied < left.size(); copied += to_copy, to_copy *= 2) {
       std::copy(start_left, start_left + to_copy, back_inserter(flatTree_));
       start_left += to_copy;
-      std::copy(start_left, start_left + to_copy, back_inserter(flatTree_));
+      std::copy(start_right, start_right + to_copy, back_inserter(flatTree_));
       start_right += to_copy;
     }
 }

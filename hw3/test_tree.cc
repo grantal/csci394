@@ -62,6 +62,32 @@ TEST_CASE("Correct Node is found for given Path", "[vectree]") {
     delete tree3;
     delete tree2;
     delete tree1;
+}
 
+TEST_CASE("getByPath works for more complex paths", "[vectree]") {
+    const auto tree1 = new TreeType(1);
+    const auto tree2 = new TreeType(2);
+    const auto tree3 = new TreeType(3, *tree1, *tree2);
+    const auto tree4 = new TreeType(4);
+    const auto tree5 = new TreeType(5);
+    const auto tree6 = new TreeType(6, *tree4, *tree5);
+    const auto tree7 = new TreeType(7, *tree3, *tree6);
+
+    REQUIRE(tree7->getByPath("LL") == 1);
+    REQUIRE(tree7->getByPath("LR") == 2);
+    REQUIRE(tree7->getByPath("L")  == 3);
+    REQUIRE(tree7->getByPath("RL") == 4);
+    REQUIRE(tree7->getByPath("RR") == 5);
+    REQUIRE(tree7->getByPath("R")  == 6);
+    REQUIRE(tree7->getByPath("")   == 7);
+
+
+    delete tree7;
+    delete tree6;
+    delete tree5;
+    delete tree4;
+    delete tree3;
+    delete tree2;
+    delete tree1;
 
 }
