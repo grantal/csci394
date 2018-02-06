@@ -44,3 +44,24 @@ TEST_CASE("Path is computed correctly", "[vectree]") {
     delete tree1;
 }
 
+TEST_CASE("Correct Node is found for given Path", "[vectree]") {
+    const auto tree1 = new TreeType(21);
+    const auto tree2 = new TreeType(13);
+    const auto tree3 = new TreeType(22, *tree1, *tree2);
+
+    // tree2 should be on the right of tree3
+    REQUIRE(tree3->getByPath("R") == 13);
+    // there are no paths coming from a tree with no leaves
+    REQUIRE_THROWS(tree1->getByPath("L"));
+    REQUIRE_THROWS(tree1->getByPath("R"));
+    // No path should return the root
+    REQUIRE(tree1->getByPath("") == 21);
+    // can't go too deep
+    REQUIRE_THROWS(tree3->getByPath("RR"));
+
+    delete tree3;
+    delete tree2;
+    delete tree1;
+
+
+}

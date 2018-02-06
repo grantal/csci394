@@ -1,0 +1,5 @@
+BUG 1: getByPath Method does not return correct values 
+In one of my test cases, the node to the right of root had the value 13, but getByPath("R") returned 0 instead of 13
+FIX: 
+
+
