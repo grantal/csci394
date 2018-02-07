@@ -6,4 +6,5 @@ std::copy(start_left, start_left + to_copy, back_inserter(flatTree_));
 to:
 std::copy(start_right, start_right + to_copy, back_inserter(flatTree_));
 
+BUG? 2: vectree implements a constructor but no destructor
 
