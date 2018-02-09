@@ -4,8 +4,8 @@ CXXFLAGS=-g -std=c++17 -Wall -pedantic -Wextra -Werror
 LDFLAGS=$(CXXFLAGS)
 LIBS=
 
-INC=vectree.hh tree.hh catch.hpp
-SRC=test_tree.cc vectree.cc
+INC=ptrtree.hh vectree.hh tree.hh catch.hpp
+SRC=vectree.cc test_ptrtree.cc ptrtree.cc
 OBJ=$(SRC:.cc=.o)
 
 all: test_tree
