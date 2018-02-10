@@ -22,7 +22,15 @@ PtrTree::PtrTree(value_t value, const PtrTree& left, const PtrTree& right)
 unsigned
 PtrTree::size() const
 {
-    return left_->size() + right_->size();
+    unsigned retval = 1; // value to return
+    if (left_ != nullptr){
+        retval += left_->size();
+    }
+    if (right_ != nullptr){
+        retval += right_->size();
+    }
+    // size will be 1 if this is leaf 
+    return retval;
 }
 
 ///////////////////////////////////////////////////////////////////////////////

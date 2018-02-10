@@ -6,9 +6,9 @@
 
 #include "catch.hpp"
 #include "tree.hh"
-#include "vectree.hh"
+#include "ptrtree.hh"
 
-using TreeType = tree::VecTree;  // Change this to test other subclasses of Tree
+using TreeType = tree::PtrTree;  // Change this to test other subclasses of Tree
 
 TEST_CASE("size is computed correctly", "[vectree]") {
     const auto tree1 = new TreeType(15);

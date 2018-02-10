@@ -5,19 +5,24 @@ LDFLAGS=$(CXXFLAGS)
 LIBS=
 
 INC=ptrtree.hh vectree.hh tree.hh catch.hpp
-SRC=vectree.cc test_ptrtree.cc ptrtree.cc
+SRC=vectree.cc ptrtree.cc test_tree.cc test_ptrtree.cc
 OBJ=$(SRC:.cc=.o)
 
 all: test_tree
 
-test_tree: $(OBJ)
-	$(CXX) $(LDFLAGS) $(LIBS) -o $@ $(OBJ)
+test_tree: test_ptrtree
 
 %.o.cc: %.cc %.hh
 	$(CXX) $(CFLAGS) -c -o $@ $<
 
-test: all
-	./test_tree
+test_vectree: $(OBJ)
+	$(CXX) $(LDFLAGS) $(LIBS) -o $@ test_tree.o vectree.o
+
+test_ptrtree: $(OBJ)
+	$(CXX) $(LDFLAGS) $(LIBS) -o $@ test_ptrtree.o ptrtree.o
+
+test: test_ptrtree
+	./test_ptrtree
 
 clean:
 	rm -f $(OBJ)
