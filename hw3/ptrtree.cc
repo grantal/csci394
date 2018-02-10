@@ -76,7 +76,26 @@ PtrTree::pathTo(value_t value) const
 PtrTree::value_t
 PtrTree::getByPath(const std::string& path) const
 {
-    std::string beep = path;
-    return value_;
+    // base case
+    if (path == ""){
+        return value_;
+    }
+
+    // find next direction
+    const PtrTree* dir;
+    if (path[0] == 'L'){
+        dir = left_;
+    } else if (path[0] == 'R'){
+        dir = right_;
+    } else {
+        throw std::runtime_error("Invalid character in path: " + path);
+    }
+
+    // recurse in that direction
+    if (dir == nullptr){
+        throw std::runtime_error("Path too long!");
+    } else {
+        return dir->getByPath(path.substr(1,path.length()));
+    }
 }
 } // end namespace
